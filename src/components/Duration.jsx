@@ -1,10 +1,14 @@
 
-export const Duration = () => {
-  return (
+export const Duration = ({duration, isEditing, onValueChange}) => {
+  return isEditing ? (
     <td>
         <label htmlFor="duration">Duration: </label>
-        <input type="time" step={12000} />
+        <input onChange = {(e)=> onValueChange(e.target.value)} type="number" value={duration}/>
     </td>
 
+  ) : (
+    <td>
+        {duration}
+    </td>
   )
 }

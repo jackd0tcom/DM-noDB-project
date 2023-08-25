@@ -13,5 +13,3 @@ axios.get('/list')
     )
   })
   .catch(err => console.log(err))
-
-
