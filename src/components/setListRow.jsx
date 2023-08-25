@@ -5,7 +5,7 @@ import { ModeButtons } from "./modeButtons"
 import { Number } from "./Number"
 import axios from "axios"
 
-const SetListRow = ({initialRowData, initalIsEditing, deleteItem, id}) => {
+const SetListRow = ({initialRowData, initalIsEditing, deleteItem}) => {
     const [isEditing, setIsEditing] = useState(initalIsEditing)
     const [number, setNumber] = useState(initialRowData.id)
     const [song, setSong] = useState(initialRowData.song)

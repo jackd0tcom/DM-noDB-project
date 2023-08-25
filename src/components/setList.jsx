@@ -1,11 +1,13 @@
 import './setList.css'
 import SetListRow from './setListRow'
+import { Total } from './total'
 import { useState } from 'react'
 import axios from 'axios'
 
 
 const SetList = ({initialSetList}) => {
     const [currentList, setCurrentList] = useState(initialSetList)
+    const [total, setTotal] = useState(0)
 
     const deleteFunc = async (id) => {
         const {data} = await axios.delete(`/deleteItem/${id}`)
@@ -36,10 +38,6 @@ const SetList = ({initialSetList}) => {
         />)
     })
 
-    const total = currentList.reduce((acc, currentValue) => {
-        return acc + currentValue.duration
-    }, 0)
-
     return (
         <div>
             <table>
@@ -56,9 +54,7 @@ const SetList = ({initialSetList}) => {
                         <td colSpan={3}>
                         <button onClick={addRow}>Add</button>
                         </td>
-                        <td>
-                        <h3>Set Time: {total}</h3>
-                        </td>
+                        <Total total={total}/>
                         </tr>
                 </tfoot>
             </table>
