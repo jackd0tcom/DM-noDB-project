@@ -1,8 +1,8 @@
 import './setList.css'
 import SetListRow from './setListRow'
-import { Total } from './total'
 import { useState } from 'react'
 import axios from 'axios'
+import { useEffect } from 'react'
 
 
 const SetList = ({initialSetList}) => {
@@ -35,15 +35,30 @@ const SetList = ({initialSetList}) => {
         duration: duration }}
         initialIsEditing = {false}
         deleteItem={() => deleteFunc(id)}
+        totalFunc={() => addTotal()}
         />)
     })
+
+    const addTotal = async () => {
+        let {data} = await axios.get('/total')
+        setTotal(0)
+        let runningTotal = data.reduce((acc, init) => {
+            return acc + init.duration
+        },0)
+        
+        setTotal(runningTotal)
+    }
+
+    useEffect(() => {
+        addTotal()
+    }, [])
 
     return (
         <div>
             <table>
             <thead>
                     <tr>
-                        <th colSpan= {4} >Set List Tracker</th>
+                        <th id='header' colSpan= {4} >Set List Tracker</th>
                     </tr>
                     </thead>
                 <tbody>
@@ -54,7 +69,7 @@ const SetList = ({initialSetList}) => {
                         <td colSpan={3}>
                         <button onClick={addRow}>Add</button>
                         </td>
-                        <Total total={total}/>
+                        <td>Total Set Time: {total}</td>
                         </tr>
                 </tfoot>
             </table>

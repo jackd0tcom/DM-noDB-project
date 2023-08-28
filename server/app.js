@@ -11,8 +11,9 @@ app.use(express.static("public"));
 app.use(express.json());
 
 // Routes here
-const { getList, editItem, deleteItem, addItem } = handlerFunctions;
+const { getList, editItem, deleteItem, addItem, totalItems } = handlerFunctions;
 app.get("/list", getList);
+app.get("/total", totalItems);
 app.put("/editList/:id", editItem);
 app.delete("/deleteItem/:id", deleteItem);
 app.post("/addItem", addItem);
